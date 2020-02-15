@@ -18,15 +18,14 @@ Convenience shortcuts for working with Docker containers.
 
 Installation will copy files to: `~/.docker-shortcuts/`.
 
-It will also add a link to `~/.docker-shortcuts/.profile` in your `~/.profile`.
+It will also add a path in your `~/.bash_profile` if it exists or `~/.profile` if not.
 
 To uninstall:
 
 1. `rm -rf ~/.docker-shortcuts`
-2. Remove the line linking to `~/.docker-shortcuts/.profile` in your `~/.profile`.
+2. Remove the path in `~/.bash_profile` or `~/.profile`.
 
-
-# MIT License
+## MIT License
 
 Copyright 2020 ArtStation
 
