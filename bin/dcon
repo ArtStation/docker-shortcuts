@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/container_chooser'
+
+command = %Q(
+  docker ps \
+    --filter="label=console=true" \
+    --filter="status=running" \
+    --format "{{.Names}}"
+).strip
+
+containers = `#{command}`.strip.split("\n")
+
+if containers.empty?
+  puts "No running containers found"
+  exit 0
+end
+
+system("clear")
+containers = containers.sort.reverse
+container = choose_container(containers)
+
+if !container
+  puts "Nothing selected"
+  exit 0
+end
+
+cols = `tput cols`.strip
+lines = `tput lines`.strip
+
+system("docker exec -e COLUMNS=#{cols} -e LINES=#{lines} -it #{container} bin/console")

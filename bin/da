@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/container_chooser'
+
+command = %Q(
+  docker ps \
+    --filter="status=running" \
+    --format "{{.Names}}"
+).strip
+
+containers = `#{command}`.strip.split("\n")
+
+if containers.empty?
+  puts "No running containers found"
+  exit 0
+end
+
+system("clear")
+containers = containers.sort.reverse
+container = choose_container(containers)
+
+if !container
+  puts "Nothing selected"
+  exit 0
+end
+
+cols = `tput cols`.strip
+lines = `tput lines`.strip
+
+has_current_folder = `docker exec -i #{container} /bin/bash -c 'ls -la /'`.include?(' current')
+
+extra_cmd = if has_current_folder
+  "cd /current && "
+else
+  ""
+end
+
+system("docker exec -e COLUMNS=#{cols} -e LINES=#{lines} -it #{container} /bin/bash -l -i -c '#{extra_cmd} exec \"${SHELL:-sh}\"'")

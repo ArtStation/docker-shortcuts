@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+name = if ARGV.size == 1
+  "--filter=\"name=#{ARGV[0]}\""
+else
+  ""
+end
+
+system("clear && docker ps -a #{name} --format 'table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}'")
