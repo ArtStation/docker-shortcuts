@@ -4,10 +4,10 @@ Convenience shortcuts for working with Docker containers.
 
 ## Commands
 
-* dps - docker ps with a much nicer formatting
-* da - docker exec with interactive terminal
-* dcon - docker console - runs bin/console, for applications that have an interactive console
-* dlogs - docker logs
+* `dps` - docker ps with a much nicer formatting
+* `da` - docker exec with interactive terminal
+* `dcon` - docker console - runs bin/console, for applications that have an interactive console
+* `dlogs` - docker logs
 
 ## Installation
 
